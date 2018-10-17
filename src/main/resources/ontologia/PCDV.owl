@@ -62,6 +62,9 @@
         <Class IRI="#descricao_do_objeto_alegado"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#data"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#descricao_do_horario_alegado"/>
     </Declaration>
     <Declaration>

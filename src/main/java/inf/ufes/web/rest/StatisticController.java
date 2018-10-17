@@ -1,7 +1,12 @@
 package inf.ufes.web.rest;
 
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.unibz.inf.ontop.injection.OntopSQLOWLAPIConfiguration;
@@ -44,6 +49,54 @@ public class StatisticController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("/sparql")
+	public Consulta consulta(@RequestParam(value="q") String q) throws OWLException{
+//		return new Consulta(q);
+		
+		String sparqlQuery = q;
+		String retorno = "";
+		
+try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
+			
+			
+			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
+			
+			
+			if(rs==null) return new Consulta("Vazio.");
+			
+			int columnSize = rs.getColumnCount();
+
+			while (rs.hasNext()) {
+				final OWLBindingSet bindingSet = rs.next();
+				for (int idx = 1; idx <= columnSize; idx++) {
+					OWLObject binding = bindingSet.getOWLObject(idx);
+					retorno = retorno + (ToStringRenderer.getInstance().getRendering(binding) + ", ");
+				}
+				retorno = retorno + "\n";
+			}
+			rs.close();
+			
+			if(retorno=="") retorno = "Vazio.";
+
+			return new Consulta(retorno);
+			
+		} 
+
+catch ( Exception ex )
+{
+	return new Consulta("Vazio.");
+  // statements to handle this
+  // type of exception
+}
+
+		finally {
+//			reasoner.dispose();
+		}
+		
+		
+		
 	}
 	
 	@RequestMapping("/penais_cpf")
@@ -96,12 +149,14 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
 				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\n"+
-				"SELECT ?indi ?p ?pcpf ?indicode WHERE {\n"+
+				"SELECT ?indi ?pnome ?p ?pcpf ?indicode ?data WHERE {\n"+
 				"?indi rdf:type :indiciamento.\n"+
 				"?p rdf:type :indiciado.\n"+
 				"?indi :indicia ?p.\n"+
 				"?p :cpf ?pcpf.\n"+
-				"?p :cpf "+cpf+".\n"+
+				"?p :nome ?pnome."+
+				"?p :cpf "+cpf+".\n"+ 
+				"?indi :data ?data."+
 				"?indi :codigo ?indicode\n"+
 				"}";
 		
@@ -109,22 +164,36 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 			
 			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
 			int columnSize = rs.getColumnCount();
+			
+			String nome = null;
+			String codigo = null;
+			String data = null;
 
 			String i = "";
 			while (rs.hasNext()) {
 				final OWLBindingSet bindingSet = rs.next();
 				for (int idx = 1; idx <= columnSize; idx++) {
+					
 					OWLObject binding = bindingSet.getOWLObject(idx);
 					System.out.print(ToStringRenderer.getInstance().getRendering(binding) + ", ");
 					i = ToStringRenderer.getInstance().getRendering(binding);
 //					return new Statistic(i, (float) rs.getColumnCount());
+					
+					if(idx==6) nome = i;
+					if(idx==4) codigo = i;
+					if(idx==5) data = i;
+					
 				}
 				System.out.print("\n");
 			}
+			
+			System.out.println("Nome: " + nome);
+			System.out.println("Codigo: " + codigo);
+			
 			rs.close();
-
+			
 			String sqlQuery = st.getExecutableQuery(sparqlQuery).toString();
-			return new Indiciamento(i);
+			return new Indiciamento(nome,codigo,data);
 			
 		} finally {
 //			reasoner.dispose();

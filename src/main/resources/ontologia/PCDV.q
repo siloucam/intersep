@@ -30,7 +30,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
 
-SELECT ?indi ?p ?pcpf ?indicode WHERE {
+SELECT ?indi ?p ?pcpf ?pnome ?indicode ?data WHERE {
 
 	?indi rdf:type :indiciamento.
 	?p rdf:type :indiciado.
@@ -39,7 +39,11 @@ SELECT ?indi ?p ?pcpf ?indicode WHERE {
 	
 	?p :cpf ?pcpf.
 	
+	?p :nome ?pnome.
+
 	?p :cpf "20311295866".
+
+	?indi :data ?data.
 
 	?indi :codigo ?indicode
 }
@@ -62,4 +66,13 @@ SELECT ?penal ?p ?pcpf ?penalcode WHERE {
 	?p :cpf "20311295866".
 
 	?penal :codigo ?penalcode.
+}
+
+[QueryItem="BASICA"]
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
+SELECT ?indi WHERE {
+	?indi rdf:type :indiciamento.
 }

@@ -19,11 +19,25 @@
 </form>
 
 	<br>
-	<h4 ng-if="indiciamento">Indiciado no processo de numero {{indiciamento}}</h4>
+	<h3>{{indiciado}}</h3>
+	<br>
+	<h4 ng-if="indiciamento">Indiciado no processo de numero {{indiciamento}} em {{date}}</h4>
 	<br>
 	<h4 ng-if="penal">Condenado na execucao de numero {{penal}}</h4>
 
-	
-	
+	<h2>Consulta SPARQL</h2>
+
+	<form>
+  	<div class="form-group">
+    <label for="exampleInputEmail1">Query Editor</label>
+    <textarea type="text" style="min-height: 200px" ng-model="query" class="form-control" id="queryinput" aria-describedby="" placeholder=""></textarea>
+  	</div>
+	</form>
+
+	<button class="btn btn-primary" ng-click="sparql()">Executar</button>
+
+	<div style="height: 10px;"></div>
+
+	<div ng-if="retorno" style="padding: 10px;border-width: 1px;border-style: solid;border-color: lightgray;">{{retorno}}</div>
 
 </div>
