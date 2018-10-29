@@ -107,6 +107,9 @@
         <ObjectProperty IRI="#realiza"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#endereco"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#cpf"/>
     </Declaration>
     <Declaration>
@@ -225,6 +228,10 @@
         <ObjectProperty IRI="#é_relacionado_ao"/>
         <Class IRI="#procedimento_de_investigacao"/>
     </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#endereco"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
 </Ontology>
 
 

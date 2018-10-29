@@ -7,6 +7,12 @@ public class Statistic {
     private String outputSPARQL;
     private String outputSQL;
     
+    public Statistic(float value) {
+    	this.value = value;
+    	this.query = "";
+    	this.outputSPARQL = "";
+    	this.outputSQL = "";
+     }
     
 	public Statistic(String query,float value, String sparql, String sql) {
 		super();

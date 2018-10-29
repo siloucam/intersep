@@ -2,7 +2,14 @@
 
 	<h2>Estatisticas</h2>
 
-	<h4 ng-if="q1">{{q1}}% dos indiciamentos tipificados como homicidio levaram a condenacoes pelo Art.121 (Matar alguem) </h4>
+	<h4><b>Q1: </b>Qual percentual de indiciamentos tipificados como homicídio levaram a condenações pelo Art.121 (Matar alguém)?</h4>
+	<h4 ng-if="q1">{{q1}}% Sim {{100-q1}}% Não </h4>
+
+	<h4><b>Q2: </b>Qual o percentual de indiciados por crime de homicídio já foram condenados por algum outro crime? (Reincidência)</h4>
+	<h4 ng-if="q2">{{q2}}% Sim {{100-q2}}% Não </h4>
+
+	<h4><b>Q3: </b>Qual o percentual de indiciados por crime de homicídio já foram condenados por outro crime de homicídio? (Reincidência Específica)</h4>
+	<h4 ng-if="q3">{{q3}}% Sim {{100-q3}}% Não </h4>
 
 	<br>
 
@@ -21,7 +28,7 @@
 	<br>
 	<h3>{{indiciado}}</h3>
 	<br>
-	<h4 ng-if="indiciamento">Indiciado no processo de numero {{indiciamento}} em {{date}}</h4>
+	<h4 ng-if="indiciamento">Indiciado no processo de numero {{indiciamento}}</h4>
 	<br>
 	<h4 ng-if="penal">Condenado na execucao de numero {{penal}}</h4>
 

@@ -24,7 +24,7 @@
         
         gerarEstatistica();
         
-        $scope.cpf = "20311295866";
+        $scope.cpf = "14859954844";
         $scope.indiciamento;
         $scope.indiciado;
         $scope.penal;
@@ -81,7 +81,6 @@ $http({
 
  $scope.indiciamento = response.data.codigo;
  $scope.indiciado = response.data.indiciado;
- $scope.date = response.data.date;
 
         		    // this callback will be called asynchronously
         		    // when the response is available
@@ -113,7 +112,7 @@ $http({
 function gerarEstatistica(){
    $http({
     method: 'GET',
-    url: ("http://localhost:8080/statistic?iq=1"),
+    url: ("http://localhost:8080/q1"),
     Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
 }).then(function successCallback(response) {
  console.log(response.data.codigo);
@@ -126,6 +125,39 @@ function gerarEstatistica(){
         		    // called asynchronously if an error occurs
         		    // or server returns response with an error status.
                 });
+
+   $http({
+    method: 'GET',
+    url: ("http://localhost:8080/q2"),
+    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
+}).then(function successCallback(response) {
+ console.log(response.data.codigo);
+
+ $scope.q2 = response.data.value;
+
+                // this callback will be called asynchronously
+                // when the response is available
+                }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                });
+
+$http({
+    method: 'GET',
+    url: ("http://localhost:8080/q3"),
+    Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
+}).then(function successCallback(response) {
+ console.log(response.data.codigo);
+
+ $scope.q3 = response.data.value;
+
+                // this callback will be called asynchronously
+                // when the response is available
+                }, function errorCallback(response) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                });
+
 }
 
 function getAccount() {

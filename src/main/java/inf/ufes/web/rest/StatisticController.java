@@ -149,14 +149,13 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
 				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
 				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\n"+
-				"SELECT ?indi ?pnome ?p ?pcpf ?indicode ?data WHERE {\n"+
+				"SELECT ?indi ?pnome ?p ?pcpf ?indicode WHERE {\n"+
 				"?indi rdf:type :indiciamento.\n"+
 				"?p rdf:type :indiciado.\n"+
 				"?indi :indicia ?p.\n"+
 				"?p :cpf ?pcpf.\n"+
 				"?p :nome ?pnome."+
 				"?p :cpf "+cpf+".\n"+ 
-				"?indi :data ?data."+
 				"?indi :codigo ?indicode\n"+
 				"}";
 		
@@ -179,9 +178,9 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 					i = ToStringRenderer.getInstance().getRendering(binding);
 //					return new Statistic(i, (float) rs.getColumnCount());
 					
-					if(idx==6) nome = i;
+					if(idx==5) nome = i;
 					if(idx==4) codigo = i;
-					if(idx==5) data = i;
+					
 					
 				}
 				System.out.print("\n");
@@ -199,71 +198,417 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 //			reasoner.dispose();
 		}
 	}
+	
+	
+//	http://localhost:8080/processo?codigo=%2247192185%22
+	
+	@RequestMapping("/processo")
+	public Pessoa processo(@RequestParam(value="codigo") String codigo) throws OWLException {
+		
+		String sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" + 
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" + 
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" + 
+				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\r\n" + 
+				"\r\n" + 
+				"SELECT ?pnome ?pcpf ?pcode WHERE {\r\n" + 
+				"\r\n" + 
+				"	?indi rdf:type :indiciamento.\r\n" + 
+				"	?indi :codigo "+ codigo +".\r\n" + 
+				"	\r\n" + 
+				"	?p rdf:type :indiciado.\r\n" + 
+				"	\r\n" + 
+				"	?indi :indicia ?p.\r\n" + 
+				"	\r\n" + 
+				"	?p :cpf ?pcpf.\r\n" + 
+				"	\r\n" + 
+				"	?p :nome ?pnome.\r\n" + 
+				"\r\n" + 
+				"	?penal rdf:type :processo_execucao_penal.\r\n" + 
+				"	\r\n" + 
+				"	?c rdf:type :condenado.\r\n" + 
+				"	?c :recebe ?penal.\r\n" + 
+				"	?c :cpf ?pcpf.\r\n" + 
+				"\r\n" + 
+				"	?penal :codigo ?pcode.\r\n" + 
+				"\r\n" + 
+				"}";
+		
+try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
+			
+			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
+			int columnSize = rs.getColumnCount();
+			
+			String nome = null;
+			String cpf = null;
+			String condenacao = null;
 
-	@RequestMapping("/statistic")
-	public Statistic statistic(@RequestParam(value = "iq") int iq)
+			String i = "";
+			while (rs.hasNext()) {
+				final OWLBindingSet bindingSet = rs.next();
+				for (int idx = 1; idx <= columnSize; idx++) {
+					
+					OWLObject binding = bindingSet.getOWLObject(idx);
+					System.out.print(ToStringRenderer.getInstance().getRendering(binding) + ", ");
+					i = ToStringRenderer.getInstance().getRendering(binding);
+//					return new Statistic(i, (float) rs.getColumnCount());
+					
+					if(idx==1) nome = i;
+					if(idx==3) cpf = i;
+					if(idx==2) condenacao = i;
+					
+				}
+				System.out.print("\n");
+			}
+			
+			rs.close();
+			
+			return new Pessoa(nome,cpf,condenacao);
+			
+		} finally {
+//			reasoner.dispose();
+		}
+	}
+
+	@RequestMapping("/q1")
+	public Statistic statistic ()
 			throws IllegalConfigurationException, ReasonerInternalException, OWLException {
 		
-		int size1 = -1;
+		float size1 = -1;
+		float size2 = -1;
 		
-		String sparqlQuery = "";
-
-		switch (iq) {
-		case 1:
-			sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\n"+
-					"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"+
-					"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"+
-					"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\n"+
-					"SELECT ?indi ?tipo_indi ?penal ?tipo_crime_pena WHERE {\n"+
-					"?indi rdf:type :indiciamento.\n"+
-					"?crime rdf:type :crime_alegado.\n"+
-					"?indi :relativo_a ?crime.\n"+
-					"?indi :codigo ?indicode.\n"+
-					"?crime :tipo ?tipo_indi.\n"+
-					"?penal rdf:type :processo_execucao_penal.\n"+
-					"?pena rdf:type :pena_imposta.\n"+
-					"?pena :componente_de ?penal.\n"+
-					"?penal :processo_origem ?indicode.\n"+
-					"?crime_pena rdf:type :crime_alegado.\n"+
-					"?pena ?relativo_a ?crime_pena.\n"+
-					"?crime_pena :tipo ?tipo_crime_pena\n"+
-					"}";
-			// return new Statistic("Questão 1",0);
-			break;
-
-		default:
-			// return null;
-			break;
-		}
+		String sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" + 
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" + 
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" + 
+				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\r\n" + 
+				"\r\n" + 
+				"SELECT ?indi ?tipo_indi ?penal ?tipo_crime_pena WHERE {\r\n" + 
+				"\r\n" + 
+				"	?indi rdf:type :indiciamento.\r\n" + 
+				"	?crime rdf:type :crime_alegado.\r\n" + 
+				"	?indi :relativo_a ?crime.\r\n" + 
+				"	?indi :codigo ?indicode.\r\n" + 
+				"	?crime :tipo ?tipo_indi.\r\n" + 
+				"	\r\n" + 
+				"	?penal rdf:type :processo_execucao_penal.\r\n" + 
+				"	?pena rdf:type :pena_imposta.\r\n" + 
+				"	?pena :componente_de ?penal.\r\n" + 
+				"\r\n" + 
+				"	?penal :processo_origem ?indicode.\r\n" + 
+				"	\r\n" + 
+				"	?crime_pena rdf:type :crime_alegado.\r\n" + 
+				"	?pena ?relativo_a ?crime_pena.\r\n" + 
+				"\r\n" + 
+				"	?crime_pena :tipo ?tipo_crime_pena.\r\n" + 
+				"	\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"\r\n" + 
+				"}";
 
 		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
 			
 			int count = 0;
 			
-			long t1 = System.currentTimeMillis();
 			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
-			int columnSize = rs.getColumnCount();
-			size1 = columnSize;
-			String i;
 			while (rs.hasNext()) {
 				final OWLBindingSet bindingSet = rs.next();
-				for (int idx = 1; idx <= columnSize; idx++) {
-					OWLObject binding = bindingSet.getOWLObject(idx);
-					System.out.print(ToStringRenderer.getInstance().getRendering(binding) + ", ");
-//					i = ToStringRenderer.getInstance().getRendering(binding);
-//					return new Statistic(i, (float) rs.getColumnCount());
-					count++;
-				}
-				System.out.print("\n");
+				count++;
 			}
 			rs.close();
-			long t2 = System.currentTimeMillis();
-			String sqlQuery = st.getExecutableQuery(sparqlQuery).toString();
-			return new Statistic("Q1",(float) count,"","");
+			
+			size1 = count;
+//			return new Statistic(count);
 		} finally {
 //			reasoner.dispose();
 		}
 
+		
+		
+		sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" + 
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" + 
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" + 
+				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\r\n" + 
+				"\r\n" + 
+				"SELECT ?indi ?tipo_indi ?penal ?tipo_crime_pena WHERE {\r\n" + 
+				"\r\n" + 
+				"	?indi rdf:type :indiciamento.\r\n" + 
+				"	?crime rdf:type :crime_alegado.\r\n" + 
+				"	?indi :relativo_a ?crime.\r\n" + 
+				"	?indi :codigo ?indicode.\r\n" + 
+				"	?crime :tipo ?tipo_indi.\r\n" + 
+				"	\r\n" + 
+				"	?penal rdf:type :processo_execucao_penal.\r\n" + 
+				"	?pena rdf:type :pena_imposta.\r\n" + 
+				"	?pena :componente_de ?penal.\r\n" + 
+				"\r\n" + 
+				"	?penal :processo_origem ?indicode.\r\n" + 
+				"	\r\n" + 
+				"	?crime_pena rdf:type :crime_alegado.\r\n" + 
+				"	?pena ?relativo_a ?crime_pena.\r\n" + 
+				"\r\n" + 
+				"	?crime_pena :tipo ?tipo_crime_pena.\r\n" + 
+				"	\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n"
+				+ "FILTER (?tipo_crime_pena = \"121\")" + 
+				"\r\n" + 
+				"}";
+
+		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
+			
+			int count = 0;
+			
+			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
+			while (rs.hasNext()) {
+				final OWLBindingSet bindingSet = rs.next();
+				count++;
+			}
+			rs.close();
+			
+			size2 = count;
+//			return new Statistic(count);
+		} finally {
+//			reasoner.dispose();
+		}
+		
+		return new Statistic((size2/size1)*100);
+		
+	}
+	// Fim do método statistic
+	
+	@RequestMapping("/q2")
+	public Statistic statistic2 ()
+			throws IllegalConfigurationException, ReasonerInternalException, OWLException {
+		
+		float size1 = -1;
+		float size2 = -1;
+		
+		String sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" + 
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" + 
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" + 
+				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\r\n" + 
+				"\r\n" + 
+				"SELECT ?pcpf ?indicode ?porigem WHERE {\r\n" + 
+				"\r\n" + 
+				"	?indi rdf:type :indiciamento.\r\n" + 
+				"	?p rdf:type :indiciado.\r\n" + 
+				"	\r\n" + 
+				"	?indi :indicia ?p.\r\n" + 
+				"	\r\n" + 
+				"	?p :cpf ?pcpf.\r\n" + 
+				"	\r\n" + 
+				"	?p :nome ?pnome.\r\n" + 
+				"\r\n" + 
+				"	?indi :codigo ?indicode.\r\n" + 
+				"\r\n" + 
+				"	?indi :relativo_a ?crime.\r\n" + 
+				"	?crime :tipo ?tipo_indi.\r\n" + 
+				"\r\n" + 
+				"	?penal rdf:type :processo_execucao_penal.\r\n" + 
+				"	?pena rdf:type :pena_imposta.\r\n" + 
+				"	?pena :componente_de ?penal.\r\n" + 
+				"\r\n" + 
+				"	?penal :processo_origem ?porigem.\r\n" + 
+				"	?c rdf:type :condenado.\r\n" + 
+				"	?c :recebe ?penal.\r\n" + 
+				"	?c :cpf ?pcpf.\r\n" + 
+				"\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"}";
+
+		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
+			
+			int count = 0;
+			
+			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
+			while (rs.hasNext()) {
+				final OWLBindingSet bindingSet = rs.next();
+				count++;
+			}
+			rs.close();
+			
+			size1 = count;
+//			return new Statistic(count);
+		} finally {
+//			reasoner.dispose();
+		}
+
+		
+		
+		sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" + 
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" + 
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" + 
+				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\r\n" + 
+				"\r\n" + 
+				"SELECT ?pcpf ?indicode ?porigem WHERE {\r\n" + 
+				"\r\n" + 
+				"	?indi rdf:type :indiciamento.\r\n" + 
+				"	?p rdf:type :indiciado.\r\n" + 
+				"	\r\n" + 
+				"	?indi :indicia ?p.\r\n" + 
+				"	\r\n" + 
+				"	?p :cpf ?pcpf.\r\n" + 
+				"	\r\n" + 
+				"	?p :nome ?pnome.\r\n" + 
+				"\r\n" + 
+				"	?indi :codigo ?indicode.\r\n" + 
+				"\r\n" + 
+				"	?indi :relativo_a ?crime.\r\n" + 
+				"	?crime :tipo ?tipo_indi.\r\n" + 
+				"\r\n" + 
+				"	?penal rdf:type :processo_execucao_penal.\r\n" + 
+				"	?pena rdf:type :pena_imposta.\r\n" + 
+				"	?pena :componente_de ?penal.\r\n" + 
+				"\r\n" + 
+				"	?penal :processo_origem ?porigem.\r\n" + 
+				"	?c rdf:type :condenado.\r\n" + 
+				"	?c :recebe ?penal.\r\n" + 
+				"	?c :cpf ?pcpf.\r\n" + 
+				"\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"	FILTER(?porigem != ?indicode).\r\n" + 
+				"}";
+
+		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
+			
+			int count = 0;
+			
+			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
+			while (rs.hasNext()) {
+				final OWLBindingSet bindingSet = rs.next();
+				count++;
+			}
+			rs.close();
+			
+			size2 = count;
+//			return new Statistic(count);
+		} finally {
+//			reasoner.dispose();
+		}
+		
+		return new Statistic((size2/size1)*100);
+		
+	}
+	// Fim do método statistic
+	
+	@RequestMapping("/q3")
+	public Statistic statistic3 ()
+			throws IllegalConfigurationException, ReasonerInternalException, OWLException {
+		
+		float size1 = -1;
+		float size2 = -1;
+		
+		String sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" + 
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" + 
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" + 
+				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\r\n" + 
+				"\r\n" + 
+				"SELECT ?pcpf ?indicode ?porigem WHERE {\r\n" + 
+				"\r\n" + 
+				"	?indi rdf:type :indiciamento.\r\n" + 
+				"	?p rdf:type :indiciado.\r\n" + 
+				"	\r\n" + 
+				"	?indi :indicia ?p.\r\n" + 
+				"	\r\n" + 
+				"	?p :cpf ?pcpf.\r\n" + 
+				"	\r\n" + 
+				"	?p :nome ?pnome.\r\n" + 
+				"\r\n" + 
+				"	?indi :codigo ?indicode.\r\n" + 
+				"\r\n" + 
+				"	?indi :relativo_a ?crime.\r\n" + 
+				"	?crime :tipo ?tipo_indi.\r\n" + 
+				"\r\n" + 
+				"	?penal rdf:type :processo_execucao_penal.\r\n" + 
+				"	?pena rdf:type :pena_imposta.\r\n" + 
+				"	?pena :componente_de ?penal.\r\n" + 
+				"\r\n" + 
+				"	?penal :processo_origem ?porigem.\r\n" + 
+				"	?c rdf:type :condenado.\r\n" + 
+				"	?c :recebe ?penal.\r\n" + 
+				"	?c :cpf ?pcpf.\r\n" + 
+				"\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"}";
+
+		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
+			
+			int count = 0;
+			
+			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
+			while (rs.hasNext()) {
+				final OWLBindingSet bindingSet = rs.next();
+				count++;
+			}
+			rs.close();
+			
+			size1 = count;
+//			return new Statistic(count);
+		} finally {
+//			reasoner.dispose();
+		}
+
+		
+		
+		sparqlQuery = "PREFIX owl: <http://www.w3.org/2002/07/owl#>\r\n" + 
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\r\n" + 
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\r\n" + 
+				"PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>\r\n" + 
+				"\r\n" + 
+				"SELECT ?pcpf ?indicode ?porigem WHERE {\r\n" + 
+				"\r\n" + 
+				"	?indi rdf:type :indiciamento.\r\n" + 
+				"	?p rdf:type :indiciado.\r\n" + 
+				"	\r\n" + 
+				"	?indi :indicia ?p.\r\n" + 
+				"	\r\n" + 
+				"	?p :cpf ?pcpf.\r\n" + 
+				"	\r\n" + 
+				"	?p :nome ?pnome.\r\n" + 
+				"\r\n" + 
+				"	?indi :codigo ?indicode.\r\n" + 
+				"\r\n" + 
+				"	?indi :relativo_a ?crime.\r\n" + 
+				"	?crime :tipo ?tipo_indi.\r\n" + 
+				"\r\n" + 
+				"	?penal rdf:type :processo_execucao_penal.\r\n" + 
+				"	?pena rdf:type :pena_imposta.\r\n" + 
+				"	?pena :componente_de ?penal.\r\n" + 
+				"\r\n" + 
+				"	?penal :processo_origem ?porigem.\r\n" + 
+				"	?c rdf:type :condenado.\r\n" + 
+				"	?c :recebe ?penal.\r\n" + 
+				"	?c :cpf ?pcpf.\r\n" + 
+				"\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"	FILTER(?porigem != ?indicode).\r\n" + 
+				"\r\n" + 
+				"	?crime_pena rdf:type :crime_alegado.\r\n" + 
+				"	?pena ?relativo_a ?crime_pena.\r\n" + 
+				"\r\n" + 
+				"	?crime_pena :tipo ?tipo_crime_pena.\r\n" + 
+				"	\r\n" + 
+				"	FILTER (?tipo_crime_pena = \"121\")\r\n" + 
+				"}\r\n" + 
+				"\r\n" + 
+				"";
+
+		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
+			
+			int count = 0;
+			
+			TupleOWLResultSet rs = st.executeSelectQuery(sparqlQuery);
+			while (rs.hasNext()) {
+				final OWLBindingSet bindingSet = rs.next();
+				count++;
+			}
+			rs.close();
+			
+			size2 = count;
+//			return new Statistic(count);
+		} finally {
+//			reasoner.dispose();
+		}
+		
+		return new Statistic((size2/size1)*100);
 		
 	}
 	// Fim do método statistic

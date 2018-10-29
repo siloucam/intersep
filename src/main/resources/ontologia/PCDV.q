@@ -21,7 +21,11 @@ SELECT ?indi ?tipo_indi ?penal ?tipo_crime_pena WHERE {
 	?crime_pena rdf:type :crime_alegado.
 	?pena ?relativo_a ?crime_pena.
 
-	?crime_pena :tipo ?tipo_crime_pena
+	?crime_pena :tipo ?tipo_crime_pena.
+	
+	FILTER (?tipo_indi = "1"^^xsd:decimal).
+	FILTER (?tipo_crime_pena = "121")
+
 }
 
 [QueryItem="Q2"]
@@ -30,7 +34,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
 
-SELECT ?indi ?p ?pcpf ?pnome ?indicode ?data WHERE {
+SELECT ?pcpf ?indicode ?porigem WHERE {
 
 	?indi rdf:type :indiciamento.
 	?p rdf:type :indiciado.
@@ -41,11 +45,22 @@ SELECT ?indi ?p ?pcpf ?pnome ?indicode ?data WHERE {
 	
 	?p :nome ?pnome.
 
-	?p :cpf "20311295866".
+	?indi :codigo ?indicode.
 
-	?indi :data ?data.
+	?indi :relativo_a ?crime.
+	?crime :tipo ?tipo_indi.
 
-	?indi :codigo ?indicode
+	?penal rdf:type :processo_execucao_penal.
+	?pena rdf:type :pena_imposta.
+	?pena :componente_de ?penal.
+
+	?penal :processo_origem ?porigem.
+	?c rdf:type :condenado.
+	?c :recebe ?penal.
+	?c :cpf ?pcpf.
+
+	FILTER (?tipo_indi = "1"^^xsd:decimal).
+	FILTER(?porigem != ?indicode).
 }
 
 [QueryItem="Q3"]
@@ -54,18 +69,40 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
 
-SELECT ?penal ?p ?pcpf ?penalcode WHERE {
+SELECT ?pcpf ?indicode ?porigem WHERE {
 
-	?penal rdf:type :processo_execucao_penal.
-	?p rdf:type :condenado.
+	?indi rdf:type :indiciamento.
+	?p rdf:type :indiciado.
 	
-	?p :recebe ?penal.
+	?indi :indicia ?p.
 	
 	?p :cpf ?pcpf.
 	
-	?p :cpf "20311295866".
+	?p :nome ?pnome.
 
-	?penal :codigo ?penalcode.
+	?indi :codigo ?indicode.
+
+	?indi :relativo_a ?crime.
+	?crime :tipo ?tipo_indi.
+
+	?penal rdf:type :processo_execucao_penal.
+	?pena rdf:type :pena_imposta.
+	?pena :componente_de ?penal.
+
+	?penal :processo_origem ?porigem.
+	?c rdf:type :condenado.
+	?c :recebe ?penal.
+	?c :cpf ?pcpf.
+
+	FILTER (?tipo_indi = "1"^^xsd:decimal).
+	FILTER(?porigem != ?indicode).
+
+	?crime_pena rdf:type :crime_alegado.
+	?pena ?relativo_a ?crime_pena.
+
+	?crime_pena :tipo ?tipo_crime_pena.
+	
+	FILTER (?tipo_crime_pena = "121")
 }
 
 [QueryItem="BASICA"]
@@ -75,4 +112,51 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
 SELECT ?indi WHERE {
 	?indi rdf:type :indiciamento.
+}
+
+[QueryItem="Q22"]
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
+
+SELECT ?penal{
+	?penal rdf:type :processo_execucao_penal.
+	?pena rdf:type :pena_imposta.
+	?pena :componente_de ?penal.
+
+	?penal :processo_origem ?porigem.
+	?c rdf:type :condenado.
+	?c :recebe ?penal.
+	?c :cpf ?ccpf.
+
+}
+
+[QueryItem="Q4"]
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
+
+SELECT ?pnome ?pcpf ?pcode WHERE {
+
+	?indi rdf:type :indiciamento.
+	?indi :codigo "47192185".
+	
+	?p rdf:type :indiciado.
+	
+	?indi :indicia ?p.
+	
+	?p :cpf ?pcpf.
+	
+	?p :nome ?pnome.
+
+	?penal rdf:type :processo_execucao_penal.
+	
+	?c rdf:type :condenado.
+	?c :recebe ?penal.
+	?c :cpf ?pcpf.
+
+	?penal :codigo ?pcode.
+
 }
