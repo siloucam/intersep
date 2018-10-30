@@ -1,0 +1,5 @@
+entity Personalizada {
+	Identificador String
+    Query String
+}
+

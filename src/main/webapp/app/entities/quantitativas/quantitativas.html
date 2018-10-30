@@ -1,0 +1,99 @@
+
+<div>
+
+    <h2>Consultas Quantitativas</h2>
+    <jhi-alert></jhi-alert>
+ 
+    <div class="container-fluid" style="margin-top: 50px">
+        <div class="row">
+        <div class="col-lg-6">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <label class="form-control-label text-justify">
+                            <span>Q1 - Qual percentual de indiciamentos tipificados como homicídio levaram a condenações pelo Art.121 (Matar alguém)?</span>
+                        </label>
+                    </div>
+                    <div class="panel-body">
+                        <div id="chartDiv"></div>
+                    </div>         
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <label class="form-control-label text-justify">
+                            <span>Q2 - Qual o percentual de indiciados por crime de homicídio que já foram condenados por algum crime?</span>
+                        </label>
+                    </div>
+                    <div class="panel-body">
+                        <div id="chartDiv2"></div>
+                    </div>         
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <label class="form-control-label text-justify">
+                            <span>Q3 - Qual o percentual de indiciados por crime de homicídio que já foram condenados pelo Art.121?</span>
+                        </label>
+                    </div>
+                    <div class="panel-body">
+                       <div id="chartDiv3"></div>
+                    </div>         
+                </div>
+            </div>
+    </div>
+
+    <!-- <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="quantitativas.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Quantitativas
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="quantitativas in vm.quantitativas track by quantitativas.id">
+                    <td><a ui-sref="quantitativas-detail({id:quantitativas.id})">{{quantitativas.id}}</a></td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="quantitativas-detail({id:quantitativas.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="quantitativas.edit({id:quantitativas.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="quantitativas.delete({id:quantitativas.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+</div>

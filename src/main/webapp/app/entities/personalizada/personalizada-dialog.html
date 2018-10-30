@@ -1,0 +1,38 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPersonalizadaLabel">Create or edit a Personalizada</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.personalizada.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.personalizada.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_identificador">Identificador</label>
+            <input type="text" class="form-control" name="identificador" id="field_identificador"
+                    ng-model="vm.personalizada.identificador"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_query">Query</label>
+            <input type="text" class="form-control" name="query" id="field_query"
+                    ng-model="vm.personalizada.query"
+                    />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
