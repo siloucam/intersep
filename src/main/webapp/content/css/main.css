@@ -2,6 +2,27 @@
 Bootstrap tweaks
 ===============================================================*/
 
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: rgba(0,0,0,0);
+    color: #4EE70B;
+}
+
+td{
+    background-color: white !important;
+}
+
+.hipster {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    background: url("../images/iconNemo.png") no-repeat center top;
+    background-size: contain;
+}
+
+.modal-header{
+background-color: #626567;
+}
+
 body, h1, h2, h3, h4 {
     font-weight: 400;
     font-family: 'Open Sans', sans-serif;
@@ -66,7 +87,7 @@ Generic styles
 .close {
     float: right;
     margin: -5px -5px 0 0;
-    background-color: #a00000 !important;
+    background-color: #626567;
     color: white;
     border-radius: 15px;
     width: 30px;
@@ -95,7 +116,7 @@ Generic styles
 }
 
 .modal-content .modal-header {
-    background-color: #900000;
+    background-color: #626567;
     color: white;
 }
 
@@ -607,6 +628,7 @@ jhi-item-count{
 }
 
 /* Style the checkmark/indicator */
+
 .container .checkmark:after {
     left: 5px;
     top: 0;
@@ -621,7 +643,7 @@ jhi-item-count{
 
 input[type="checkbox"]{
     height: auto;
-    margin-left: -28px;
+    /* margin-left: -28px; */
 }
 
 .nav-pills .nav-link.active, .show>.nav-pills .nav-link{
@@ -648,7 +670,7 @@ input[type="checkbox"]{
 }
 
 .nav-tabs .nav-link:hover{
-    border-bottom-color: rgb(139, 139, 139);
+    /*border-bottom-color: rgb(139, 139, 139);*/
 }
 
 .nav > .nav-item > .nav-link{

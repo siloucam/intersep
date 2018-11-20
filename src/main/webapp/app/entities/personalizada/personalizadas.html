@@ -1,13 +1,50 @@
+<link rel="stylesheet" href="../../../content/css/personalizada.css">
+
+<style type="text/css">
+    textarea {
+    height: 300px;
+}
+
+.panel-body{
+    padding: 0 20px;
+}
+
+.panel-heading {
+    margin-bottom: 10px;
+}
+</style>
+
 <div>
+
+    <h2 class="text-center">Consulta SPARQL</h2>
+    <br>
+	<form>
+  	<div class="form-group">
+    <label for="exampleInputEmail1">Query Editor</label>
+    <textarea type="text" style="min-height: 200px" ng-model="query" class="form-control" id="queryinput" aria-describedby="" placeholder=""></textarea>
+  	</div>
+	</form>
+
+    <br>
+
+	<button class="btn btn-primary" ng-click="sparql()">Executar</button>
+
+	<div style="height: 10px;"></div>
+
+	<div ng-if="retorno" style="padding: 10px;border-width: 1px;border-style: solid;border-color: lightgray;">{{retorno}}</div>
+
+    <br>
+
     <h2>Personalizadas</h2>
+    <br>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="personalizada.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span >
-                        Create new Personalizada
+                    <span>
+                        Nova Consulta Personalizada
                     </span>
                 </button>
             </div>
@@ -18,7 +55,6 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr>
-                    <th><span>ID</span></th>
                     <th><span>Identificador</span></th>
                     <th><span>Query</span></th>
                     <th></th>
@@ -26,15 +62,13 @@
             </thead>
             <tbody>
                 <tr ng-repeat="personalizada in vm.personalizadas track by personalizada.id">
-                    <td><a ui-sref="personalizada-detail({id:personalizada.id})">{{personalizada.id}}</a></td>
                     <td>{{personalizada.identificador}}</td>
                     <td>{{personalizada.query}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="personalizada-detail({id:personalizada.id})"
-                                    class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
+                                    class="btn btn-info btn-sm" ng-click="copiar_pro_editor({q:personalizada.query})">
+                                    Copiar pro Editor
                                 <span class="hidden-sm-down"></span>
                             </button>
                             <button type="submit"

@@ -16,6 +16,9 @@ import it.unibz.inf.ontop.owlapi.connection.OntopOWLConnection;
 import it.unibz.inf.ontop.owlapi.connection.OntopOWLStatement;
 import it.unibz.inf.ontop.owlapi.resultset.OWLBindingSet;
 import it.unibz.inf.ontop.owlapi.resultset.TupleOWLResultSet;
+
+import java.net.URL;
+
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -26,9 +29,17 @@ import org.semanticweb.owlapi.reasoner.ReasonerInternalException;
 @RestController
 public class StatisticController {
 
-	private final String owlfile = "src/main/resources/ontologia/PCDV.owl";
-	private final String obdafile = "src/main/resources/ontologia/PCDV.obda";
-	private final String propertiesfile = "src/main/resources/ontologia/PCDV.properties";
+	URL owlUrl = this.getClass()
+                       .getClassLoader().getResource("ontologia/PCDV.owl");
+    URL obdaUrl = this.getClass()
+                       .getClassLoader().getResource("ontologia/PCDV.obda");
+    URL pUrl = this.getClass()
+                       .getClassLoader().getResource("ontologia/PCDV.properties");
+
+	// private final String owlfile = "src/main/resources/ontologia/PCDV.owl";
+	// private final String obdafile = "src/main/resources/ontologia/PCDV.obda";
+	// private final String propertiesfile = "src/main/resources/ontologia/PCDV.properties";
+
 	
 	OntopOWLReasoner reasoner = null;
 	OntopOWLFactory factory = null;
@@ -37,7 +48,7 @@ public class StatisticController {
 	public StatisticController() {
 		this.factory = OntopOWLFactory.defaultFactory();
 		this.config = (OntopSQLOWLAPIConfiguration) OntopSQLOWLAPIConfiguration.defaultBuilder()
-				.nativeOntopMappingFile(obdafile).ontologyFile(owlfile).propertyFile(propertiesfile).enableTestMode()
+				.nativeOntopMappingFile(obdaUrl.toString()).ontologyFile(owlUrl.toString()).propertyFile(pUrl.toString()).enableTestMode()
 				.build();
 		
 		try {

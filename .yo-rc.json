@@ -7,7 +7,7 @@
     "baseName": "IntersepHipster",
     "packageName": "inf.ufes",
     "packageFolder": "inf/ufes",
-    "serverPort": "8080",
+    "serverPort": "8081",
     "authenticationType": "jwt",
     "cacheProvider": "ehcache",
     "enableHibernateCache": false,

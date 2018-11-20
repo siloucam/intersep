@@ -160,12 +160,3 @@ SELECT ?pnome ?pcpf ?pcode WHERE {
 	?penal :codigo ?pcode.
 
 }
-
-[QueryItem="MOSTBASIC"]
-PREFIX owl: <http://www.w3.org/2002/07/owl#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX : <http://www.semanticweb.org/nemo/ontologies/pcdv#>
-SELECT ?tip WHERE {
-	?tip rdf:type :tipificacao_do_crime.
-}

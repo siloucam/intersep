@@ -1,0 +1,154 @@
+/* ==========================================================================
+Navbar
+========================================================================== */
+.navbar-version {
+    font-size: 10px;
+    color: white;
+}
+
+span{
+    font-size: 16px;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+    color: white;
+    padding-left: 2px;
+    padding-right: 0;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+    color: #4EE70B;
+    padding-left: 2px;
+    padding-right: 0;
+    transition: 0.3s;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: rgba(0,0,0,0);
+    border-color: #4EE70B;
+    transition: 0.3s;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: rgba(0,0,0,0);
+    color: #4EE70B;
+    transition: 0.3s;
+}
+
+.dropdown ul {
+    margin-top: 10px;
+    padding-top: 2px;
+    padding-bottom: 0;
+    left: 0 !important;
+}
+
+.dropdown li > a{
+    border-bottom: 1px solid #ddd;
+    padding-left: 10px !important;
+}
+
+.dropdown li > a:hover{
+	text-decoration: none;
+	color: #ffffff;
+	background-color: #626567;
+    background-repeat: repeat-x;
+}
+
+.jh-navbar {
+    background-color: #626567;
+    padding: .2em 1em;
+    z-index: 10;
+}
+
+.jh-navbar .profile-image {
+    margin: -10px 0px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.jh-navbar .dropdown-item.active, .jh-navbar .dropdown-item.active:focus, .jh-navbar .dropdown-item.active:hover {
+    background-color: #626567;
+}
+
+.jh-navbar .dropdown-toggle::after {
+    margin-left: 0.15em;
+}
+
+.jh-navbar ul.navbar-nav {
+    padding: 0.5em;
+}
+
+.jh-navbar .navbar-nav .nav-item {
+    margin-left: 1.5rem;
+}
+
+.jh-navbar a.nav-link {
+    font-weight: 400;
+}
+
+.jh-navbar .jh-navbar-toggler {
+    color: white;
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+.jh-navbar .jh-navbar-toggler:hover {
+    color: white;
+}
+
+@media (min-width: 768px) {
+    .jh-navbar-toggler {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .jh-logo-container {
+        width: 100%;
+    }
+}
+
+.navbar-title {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bar-topo{
+    background-color: rgb(132, 136, 138);
+    height: 30px;
+}
+
+.bar-topo label{
+    color: white;
+    font-size: 14px;
+}
+
+@media (max-width: 500px) {
+    .bar-topo{
+        height: 40px;
+    }
+}
+
+
+
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.navbar-brand.logo {
+    padding: 0 15px;
+}
+
+.logo .logo-img {
+    height: 55px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 180px;
+}
+
+.logo-img {
+    height: 100%;
+    background: url("../../../content/images/logoIntersep2.png") no-repeat center center;
+    background-size: contain;
+    width: 100%;
+}

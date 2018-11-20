@@ -68,13 +68,13 @@
         <Class IRI="#descricao_do_horario_alegado"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#vitima_alegada"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#nome"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#é_lesada_em"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#vitima_alegada"/>
     </Declaration>
     <Declaration>
         <Class IRI="#delegado"/>

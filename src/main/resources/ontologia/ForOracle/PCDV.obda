@@ -1,0 +1,82 @@
+[PrefixDeclaration]
+:		http://www.semanticweb.org/nemo/ontologies/pcdv#
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+obda:		https://w3id.org/obda/vocabulary#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+
+[MappingDeclaration] @collection [[
+mappingId	Map Indiciado
+target		:Indiciado{ID_ENVOLVIDO} a :indiciado ; :nome {NOME}^^xsd:string ; :cpf {CPF}^^xsd:string . 
+source		SELECT ENVOLVIDO.CPF,ENVOLVIDO.NOME, E.ID_ENVOLVIDO,E.ID_PECA,E.TIPO TIPOENVOLVIMENTO,PECA.ID_PROCEDIMENTO,PROCEDIMENTO.TIPO TIPOPROCEDIMENTO,PROCEDIMENTO.STATUS FROM ENVOLVIMENTO E
+			INNER JOIN PECA PECA ON PECA.ID_PECA = E.ID_PECA
+			INNER JOIN ENVOLVIDO ENVOLVIDO ON ENVOLVIDO.ID_ENVOLVIDO = E.ID_ENVOLVIDO
+			INNER JOIN PROCEDIMENTO PROCEDIMENTO ON PECA.ID_PROCEDIMENTO = PROCEDIMENTO.ID_PROCEDIMENTO
+			WHERE PROCEDIMENTO.STATUS = 'Tramitado' AND PROCEDIMENTO.TIPO = 'IP' AND E.TIPO = 'SUSPEITO'
+
+mappingId	Map Indiciamento
+target		:Indiciamento{ID_PROCEDIMENTO} :indicia :Indiciado{ID_ENVOLVIDO} ; :codigo {CODIGO}^^xsd:string . 
+source		SELECT ENVOLVIDO.CPF,ENVOLVIDO.NOME, E.ID_ENVOLVIDO,E.ID_PECA,E.TIPO TIPOENVOLVIMENTO,PECA.ID_PROCEDIMENTO,PROCEDIMENTO.TIPO TIPOPROCEDIMENTO,PROCEDIMENTO.STATUS,PROCEDIMENTO.CODIGO FROM ENVOLVIMENTO E
+			INNER JOIN PECA PECA ON PECA.ID_PECA = E.ID_PECA
+			INNER JOIN ENVOLVIDO ENVOLVIDO ON ENVOLVIDO.ID_ENVOLVIDO = E.ID_ENVOLVIDO
+			INNER JOIN PROCEDIMENTO PROCEDIMENTO ON PECA.ID_PROCEDIMENTO = PROCEDIMENTO.ID_PROCEDIMENTO
+			WHERE PROCEDIMENTO.STATUS = 'Tramitado' AND PROCEDIMENTO.TIPO = 'IP' AND E.TIPO = 'SUSPEITO'
+
+mappingId	Map Crime Alegado
+target		:Crime_Alegado_em_{CODIGO} a :crime_alegado . 
+source		select * from PROCEDIMENTO where TIPO='IP'
+
+mappingId	Map relativo_a
+target		:Indiciamento{ID_PROCEDIMENTO} :relativo_a :Crime_Alegado_em_{CODIGO} . 
+source		select * from PROCEDIMENTO where tipo='IP'
+
+mappingId	Map Tipificacao_do_Crime
+target		:Tipificacao_do_Crime_{CODIGO} a :tipificacao_do_crime ; :codigo {CODIGO} . 
+source		select * from TIPIFICACAO_FATO
+
+mappingId	Map Menciona
+target		:Crime_Alegado_em_{CODIGO} :tipo {ID_TIPIFICACAO_FATO} . 
+source		SELECT E.ID_PECA,PROCEDIMENTO.CODIGO,PECA.ID_TIPIFICACAO_FATO FROM ENVOLVIMENTO E
+			INNER JOIN PECA PECA ON PECA.ID_PECA = E.ID_PECA
+			INNER JOIN ENVOLVIDO ENVOLVIDO ON ENVOLVIDO.ID_ENVOLVIDO = E.ID_ENVOLVIDO
+			INNER JOIN PROCEDIMENTO PROCEDIMENTO ON PECA.ID_PROCEDIMENTO = PROCEDIMENTO.ID_PROCEDIMENTO
+			WHERE PROCEDIMENTO.STATUS = 'Tramitado' AND PROCEDIMENTO.TIPO = 'IP' AND E.TIPO = 'SUSPEITO'
+
+mappingId	MAP_Execucao_Penal
+target		:Execucao_Penal_{NO_FEITO} a :processo_execucao_penal ; :codigo {NO_FEITO}^^xsd:string ; :processo_origem {NO_PROCESSO_ORIGEM}^^xsd:string . 
+source		SELECT * from FEITO
+			inner join FEITO_ORIGEM on FEITO.ID_FEITO = FEITO_ORIGEM.ID_FEITO
+
+mappingId	MAP_Pena_Imposta
+target		:Pena_Imposta_de_{NO_FEITO} a :pena_imposta ; :componente_de :Execucao_Penal_{NO_FEITO} . 
+source		SELECT * from PENA_APLICADA
+			inner join FEITO on PENA_APLICADA.ID_EXECUCAO = FEITO.ID_FEITO
+
+mappingId	MAP_relativo_a
+target		:Pena_Imposta_de_{NO_FEITO} :relativo_a :Crime_Alegado_de_{NO_FEITO} . 
+source		SELECT PENA_APLICADA.DM_TIPO_PENA_APLICADA, FEITO.NO_FEITO from PENA_APLICADA
+			inner join FEITO on PENA_APLICADA.ID_EXECUCAO = FEITO.ID_FEITO
+
+mappingId	MAP_Crime_Alegado
+target		:Crime_Alegado_de_{NO_FEITO} a :crime_alegado ; :tipo {DM_TIPO_PENA_APLICADA} . 
+source		SELECT PENA_APLICADA.DM_TIPO_PENA_APLICADA, FEITO.NO_FEITO from PENA_APLICADA
+			inner join FEITO on PENA_APLICADA.ID_EXECUCAO = FEITO.ID_FEITO
+
+mappingId	MAP_Condenado
+target		:Condenado_{NO_CPF} a :condenado ; :recebe :Execucao_Penal_{NO_FEITO} ; :cpf {NO_CPF}^^xsd:string . 
+source		SELECT F.NO_FEITO, CPF.NO_CPF
+			FROM FEITO F
+			INNER JOIN PESSOA_FEITO PF
+			ON F.ID_FEITO = PF.ID_FEITO
+			INNER JOIN PESSOA P
+			ON P.ID_PESSOA = PF.ID_PESSOA
+			INNER JOIN TIPO_PESSOA TP
+			ON TP.ID_TIPO_PESSOA = 2
+			INNER JOIN PESSOA_FISICA P_F
+			ON P.ID_PESSOA = P_F.ID_PESSOA_FISICA
+			INNER JOIN CPF CPF
+			ON P_F.ID_PESSOA_FISICA = CPF.ID_PESSOA_FISICA
+]]
+

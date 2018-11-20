@@ -1,0 +1,13 @@
+entity Personalizada {
+	Identificador String
+    Query String
+}
+
+entity Qualitativa {
+
+}
+
+entity Quantitativa {
+
+}
+

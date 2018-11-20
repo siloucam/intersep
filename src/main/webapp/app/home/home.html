@@ -1,50 +1,38 @@
 <div ng-cloak>
 
-	<h2>Estatisticas</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <span class="hipster img-responsive img-rounded"></span>
+        </div>
+        <div class="col-md-8">
+            <h1 data-translate="home.title">Bem Vindo!</h1>
+            <!-- <p class="lead" data-translate="home.subtitle">Faça login para ter acesso às consultas.</p> -->
 
-	<h4><b>Q1: </b>Qual percentual de indiciamentos tipificados como homicídio levaram a condenações pelo Art.121 (Matar alguém)?</h4>
-	<h4 ng-if="q1">{{q1}}% Sim {{100-q1}}% Não </h4>
+            <br>
 
-	<h4><b>Q2: </b>Qual o percentual de indiciados por crime de homicídio já foram condenados por algum outro crime? (Reincidência)</h4>
-	<h4 ng-if="q2">{{q2}}% Sim {{100-q2}}% Não </h4>
+            <div ng-switch="vm.isAuthenticated()">
+                <div class="alert alert-success" ng-switch-when="true" data-translate="home.logged.message" translate-values="{username: '{{vm.account.login}}'}">
+                    Você esta logado como "{{vm.account.login}}".
+                </div>
 
-	<h4><b>Q3: </b>Qual o percentual de indiciados por crime de homicídio já foram condenados por outro crime de homicídio? (Reincidência Específica)</h4>
-	<h4 ng-if="q3">{{q3}}% Sim {{100-q3}}% Não </h4>
+                <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.authenticated" translate-compile>
+                    Faça <a class="alert-link" href="" ng-click="vm.login()">Login</a> para ter acesso às consultas.
+                </div>
+<!-- 
+                <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.register" translate-compile>
+                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+                </div> -->
+            </div>
 
-	<br>
+            <p data-translate="home.question">
+                Se tiver alguma dúvida entre em contato
+            </p>
 
-	<h2>Busca por CPF</h2>
+            <ul>
+                <li><a href="https://nemo.inf.ufes.br/pt-br/" target="_blank" rel="noopener">Homepage do NEMO</a></li>
+            </ul>
+        </div>
+    </div>
 
-    <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">CPF</label>
-    <input ng-model="cpf" class="form-control" id="cpfinput" aria-describedby="emailHelp" placeholder="Digite o CPF">
-    <small id="emailHelp" class="form-text text-muted"></small>
-  </div>
-
-  <button type="submit" class="btn btn-primary" ng-click="buscar()">Buscar</button>
-</form>
-
-	<br>
-	<h3>{{indiciado}}</h3>
-	<br>
-	<h4 ng-if="indiciamento">Indiciado no processo de numero {{indiciamento}}</h4>
-	<br>
-	<h4 ng-if="penal">Condenado na execucao de numero {{penal}}</h4>
-
-	<h2>Consulta SPARQL</h2>
-
-	<form>
-  	<div class="form-group">
-    <label for="exampleInputEmail1">Query Editor</label>
-    <textarea type="text" style="min-height: 200px" ng-model="query" class="form-control" id="queryinput" aria-describedby="" placeholder=""></textarea>
-  	</div>
-	</form>
-
-	<button class="btn btn-primary" ng-click="sparql()">Executar</button>
-
-	<div style="height: 10px;"></div>
-
-	<div ng-if="retorno" style="padding: 10px;border-width: 1px;border-style: solid;border-color: lightgray;">{{retorno}}</div>
-
+	
 </div>

@@ -1,0 +1,11 @@
+textarea {
+    height: 300px;
+}
+
+.panel-body{
+    padding: 0 20px;
+}
+
+.panel-heading {
+    margin-bottom: 10px;
+}
