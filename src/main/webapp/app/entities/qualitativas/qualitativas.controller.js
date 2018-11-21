@@ -25,7 +25,7 @@
         $scope.buscoucpf = false;
         $scope.buscaprocesso = false;
 
-        $scope.buscacpf = "14859954844";
+        $scope.buscacpf = "00040882319";
         $scope.indiciamento;
         $scope.indiciado;
         $scope.penal;
@@ -34,7 +34,7 @@
         $scope.nome;
         $scope.condenacao;
 
-        $scope.codigoprocesso = "47192185";
+        $scope.codigoprocesso = "40538793";
 
 
 
@@ -44,7 +44,7 @@ $scope.buscarprocesso = function(){
 
 $http({
     method: 'GET',
-    url: ("http://localhost:8080/processo?codigo='"+$scope.codigoprocesso+"'"),
+    url: ("http://localhost:8081/processo?codigo='"+$scope.codigoprocesso+"'"),
     Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
 }).then(function successCallback(response) {
 
@@ -82,7 +82,7 @@ $scope.buscar = function() {
 
 $http({
     method: 'GET',
-    url: ("http://localhost:8080/indiciamentos_cpf?cpf='"+$scope.buscacpf+"'"),
+    url: ("http://localhost:8081/indiciamentos_cpf?cpf='"+$scope.buscacpf+"'"),
     Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
 }).then(function successCallback(response) {
 
@@ -115,7 +115,7 @@ $http({
 
 $http({
   method: 'GET',
-  url: ("http://localhost:8080/penais_cpf?cpf='"+$scope.buscacpf+"'"),
+  url: ("http://localhost:8081/penais_cpf?cpf='"+$scope.buscacpf+"'"),
   Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
 }).then(function successCallback(response) {
    console.log(response.data.codigo);

@@ -311,7 +311,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"\r\n" + 
 				"	?crime_pena :tipo ?tipo_crime_pena.\r\n" + 
 				"	\r\n" + 
-				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:string).\r\n" + 
 				"\r\n" + 
 				"}";
 
@@ -358,7 +358,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"\r\n" + 
 				"	?crime_pena :tipo ?tipo_crime_pena.\r\n" + 
 				"	\r\n" + 
-				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n"
+				"	FILTER (?tipo_indi = \"1\"^^xsd:string).\r\n"
 				+ "FILTER (?tipo_crime_pena = \"121\")" + 
 				"\r\n" + 
 				"}";
@@ -381,6 +381,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 		}
 		
 		return new Statistic((size2/size1)*100);
+//		return new Statistic(size1);
 		
 	}
 	// Fim do método statistic
@@ -422,7 +423,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"	?c :recebe ?penal.\r\n" + 
 				"	?c :cpf ?pcpf.\r\n" + 
 				"\r\n" + 
-				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:string).\r\n" + 
 				"}";
 
 		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
@@ -474,7 +475,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"	?c :recebe ?penal.\r\n" + 
 				"	?c :cpf ?pcpf.\r\n" + 
 				"\r\n" + 
-				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"	FILTER (?tipo_indi = \"1\"^^xsd:string).\r\n" + 
 				"	FILTER(?porigem != ?indicode).\r\n" + 
 				"}";
 
@@ -496,6 +497,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 		}
 		
 		return new Statistic((size2/size1)*100);
+//		return new Statistic(size2);
 		
 	}
 	// Fim do método statistic
@@ -537,7 +539,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"	?c :recebe ?penal.\r\n" + 
 				"	?c :cpf ?pcpf.\r\n" + 
 				"\r\n" + 
-				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"	FILTER (?tipo_indi = \"1\").\r\n" + 
 				"}";
 
 		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
@@ -589,7 +591,7 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"	?c :recebe ?penal.\r\n" + 
 				"	?c :cpf ?pcpf.\r\n" + 
 				"\r\n" + 
-				"	FILTER (?tipo_indi = \"1\"^^xsd:decimal).\r\n" + 
+				"	FILTER (?tipo_indi = \"1\").\r\n" + 
 				"	FILTER(?porigem != ?indicode).\r\n" + 
 				"\r\n" + 
 				"	?crime_pena rdf:type :crime_alegado.\r\n" + 
