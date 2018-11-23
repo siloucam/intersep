@@ -475,9 +475,16 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 				"	?c :recebe ?penal.\r\n" + 
 				"	?c :cpf ?pcpf.\r\n" + 
 				"\r\n" + 
-				"	FILTER (?tipo_indi = \"1\"^^xsd:string).\r\n" + 
+				"	FILTER (?tipo_indi = \"1\").\r\n" + 
 				"	FILTER(?porigem != ?indicode).\r\n" + 
-				"}";
+				"\r\n" + 
+				"	?crime_pena rdf:type :crime_alegado.\r\n" + 
+				"	?pena ?relativo_a ?crime_pena.\r\n" + 
+				"\r\n" + 
+				"	?crime_pena :tipo ?tipo_crime_pena.\r\n" + 
+				"}\r\n" + 
+				"\r\n" + 
+				"";
 
 		try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = conn.createStatement()) {
 			
