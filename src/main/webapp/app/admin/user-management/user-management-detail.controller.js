@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .controller('UserManagementDetailController', UserManagementDetailController);
 
     UserManagementDetailController.$inject = ['$stateParams', 'User'];

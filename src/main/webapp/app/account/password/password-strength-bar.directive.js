@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .directive('passwordStrengthBar', passwordStrengthBar);
 
     function passwordStrengthBar () {
@@ -11,7 +11,7 @@
             replace: true,
             restrict: 'E',
             template: '<div id="strength">' +
-                '<small>Password strength:</small>' +
+                '<small data-translate="global.messages.validate.newpassword.strength">Password strength:</small>' +
                 '<ul id="strengthBar">' +
                 '<li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li><li class="point"></li>' +
                 '</ul>' +

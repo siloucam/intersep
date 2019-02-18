@@ -1,7 +1,7 @@
 package inf.ufes.service;
 import inf.ufes.config.Constants;
 
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 import inf.ufes.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
@@ -30,7 +30,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 public class MailServiceIntTest {
 
     @Autowired

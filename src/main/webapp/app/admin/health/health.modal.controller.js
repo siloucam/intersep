@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('intersepHipsterApp')
+    angular.module('intersepApp')
         .controller('HealthModalController', HealthModalController);
 
     HealthModalController.$inject = ['$uibModalInstance', 'currentHealth', 'baseName', 'subSystemName'];

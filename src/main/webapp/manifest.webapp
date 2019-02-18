@@ -1,6 +1,6 @@
 {
-  "name": "intersepHipsterApp",
-  "short_name": "intersepHipsterApp",
+  "name": "intersepApp",
+  "short_name": "intersepApp",
   "icons": [
       {
           "src": "/content/images/logo-jhipster.png",

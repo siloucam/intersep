@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .controller('PersonalizadaDetailController', PersonalizadaDetailController);
 
     PersonalizadaDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Personalizada'];
@@ -13,7 +13,7 @@
         vm.personalizada = entity;
         vm.previousState = previousState.name;
 
-        var unsubscribe = $rootScope.$on('intersepHipsterApp:personalizadaUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('intersepApp:personalizadaUpdate', function(event, result) {
             vm.personalizada = result;
         });
         $scope.$on('$destroy', unsubscribe);

@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-    .module('intersepHipsterApp')
-    .controller('HomeController', HomeController);
+        .module('intersepApp')
+        .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state', '$http'];
+    HomeController.$inject = ['$scope', 'Principal', 'LoginService', '$state'];
 
-    function HomeController ($scope, Principal, LoginService, $state, $http) {
+    function HomeController ($scope, Principal, LoginService, $state) {
         var vm = this;
 
         vm.account = null;
@@ -20,16 +20,14 @@
 
         getAccount();
 
-       
-
-function getAccount() {
-    Principal.identity().then(function(account) {
-        vm.account = account;
-        vm.isAuthenticated = Principal.isAuthenticated;
-    });
-}
-function register () {
-    $state.go('register');
-}
-}
+        function getAccount() {
+            Principal.identity().then(function(account) {
+                vm.account = account;
+                vm.isAuthenticated = Principal.isAuthenticated;
+            });
+        }
+        function register () {
+            $state.go('register');
+        }
+    }
 })();

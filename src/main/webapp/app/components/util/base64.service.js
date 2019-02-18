@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .factory('Base64', Base64);
 
     function Base64 () {

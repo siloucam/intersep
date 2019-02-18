@@ -16,14 +16,12 @@
 
 spring:
     application:
-        name: IntersepHipster
+        name: intersep
     jackson:
         serialization.write_dates_as_timestamps: false
-    cache:
-        type: simple
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:IntersepHipster;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:intersep;DB_CLOSE_DELAY=-1
         name:
         username:
         password:
@@ -86,11 +84,9 @@ jhipster:
         from: test@localhost
         base-url: http://127.0.0.1:8080
     security:
-        authentication:
-            jwt:
-                secret: b87cc155d1cc25a93301ab000432b2f36ee87e9f
-                # Token is valid 24 hours
-                token-validity-in-seconds: 86400
+        remember-me:
+            # security key (this key should be unique for your application, and kept secret)
+            key: d84263ebdefbdcf358baebd7458567aae1011151
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         logs: # Reports Dropwizard metrics in the logs

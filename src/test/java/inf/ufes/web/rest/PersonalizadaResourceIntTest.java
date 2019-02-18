@@ -1,6 +1,6 @@
 package inf.ufes.web.rest;
 
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 
 import inf.ufes.domain.Personalizada;
 import inf.ufes.repository.PersonalizadaRepository;
@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see PersonalizadaResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 public class PersonalizadaResourceIntTest {
 
     private static final String DEFAULT_IDENTIFICADOR = "AAAAAAAAAA";

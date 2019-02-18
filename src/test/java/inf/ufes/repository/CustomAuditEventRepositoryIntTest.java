@@ -1,6 +1,6 @@
 package inf.ufes.repository;
 
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 import inf.ufes.config.Constants;
 import inf.ufes.config.audit.AuditEventConverter;
 import inf.ufes.domain.PersistentAuditEvent;
@@ -32,7 +32,7 @@ import static inf.ufes.repository.CustomAuditEventRepository.EVENT_DATA_COLUMN_M
  * @see CustomAuditEventRepository
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 @Transactional
 public class CustomAuditEventRepositoryIntTest {
 

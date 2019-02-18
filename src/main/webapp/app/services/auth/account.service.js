@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .factory('Account', Account);
 
     Account.$inject = ['$resource'];

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
@@ -14,7 +14,7 @@
             url: '/personalizada',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Personalizadas'
+                pageTitle: 'intersepApp.personalizada.home.title'
             },
             views: {
                 'content@': {
@@ -24,6 +24,11 @@
                 }
             },
             resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('personalizada');
+                    $translatePartialLoader.addPart('global');
+                    return $translate.refresh();
+                }]
             }
         })
         .state('personalizada-detail', {
@@ -31,7 +36,7 @@
             url: '/personalizada/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'Personalizada'
+                pageTitle: 'intersepApp.personalizada.detail.title'
             },
             views: {
                 'content@': {
@@ -41,6 +46,10 @@
                 }
             },
             resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('personalizada');
+                    return $translate.refresh();
+                }],
                 entity: ['$stateParams', 'Personalizada', function($stateParams, Personalizada) {
                     return Personalizada.get({id : $stateParams.id}).$promise;
                 }],

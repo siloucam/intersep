@@ -1,7 +1,7 @@
 package inf.ufes.web.rest;
 
 import io.github.jhipster.config.JHipsterProperties;
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ProfileInfoResource
  **/
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 public class ProfileInfoResourceIntTest {
 
     @Mock

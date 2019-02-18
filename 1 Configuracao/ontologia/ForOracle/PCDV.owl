@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/nemo/ontologies/pcdv"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/nemo/ontologies/pcdv">
+    <Prefix name="" IRI="http://www.semanticweb.org/nemo/ontologies/pcdv#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="obda" IRI="https://w3id.org/obda/vocabulary#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <DataProperty IRI="#tipo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#investigador"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#indicia"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#faz_relato_em"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#tipo_de_participacao"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#recebe"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#peca_investigatoria"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#fundamentam"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#indiciado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#tipificacao_do_crime"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#testemunha"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_da_arma_do_crime_alegada"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#caracteriza"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#é_relacionado_ao"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_dos_indicios"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_do_objeto_alegado"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#data"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_do_horario_alegado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#vitima_alegada"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#nome"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#é_lesada_em"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#delegado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_do_criminoso_alegado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_do_local_alegado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_da_vitima_alegada"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_da_motivacao_alegada"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#investigado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#relativo_a"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#depoente"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#procedimento_de_investigacao"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#realiza"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#endereco"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#cpf"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#descricao_da_participacao_do_criminoso_alegado"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#processo_origem"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#processo_execucao_penal"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#intimado_em"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#menciona"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#crime_alegado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#condenado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#pena_imposta"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#componente_de"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#codigo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#acusador"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#indiciamento"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#acusador"/>
+        <Class IRI="#delegado"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#investigador"/>
+        <Class IRI="#delegado"/>
+    </SubClassOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#menciona"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#é_relacionado_ao"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#caracteriza"/>
+        <Class IRI="#peca_investigatoria"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#faz_relato_em"/>
+        <Class IRI="#testemunha"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#fundamentam"/>
+        <Class IRI="#descricao_dos_indicios"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#indicia"/>
+        <Class IRI="#indiciamento"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#intimado_em"/>
+        <Class IRI="#depoente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#realiza"/>
+        <Class IRI="#investigador"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#é_lesada_em"/>
+        <Class IRI="#vitima_alegada"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#é_relacionado_ao"/>
+        <Class IRI="#peca_investigatoria"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#caracteriza"/>
+        <Class IRI="#investigado"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#faz_relato_em"/>
+        <Class IRI="#procedimento_de_investigacao"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#fundamentam"/>
+        <Class IRI="#indiciamento"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#indicia"/>
+        <Class IRI="#indiciado"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#intimado_em"/>
+        <Class IRI="#procedimento_de_investigacao"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#realiza"/>
+        <Class IRI="#procedimento_de_investigacao"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#é_lesada_em"/>
+        <Class IRI="#peca_investigatoria"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#é_relacionado_ao"/>
+        <Class IRI="#procedimento_de_investigacao"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#endereco"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

@@ -1,6 +1,6 @@
 package inf.ufes.web.rest;
 
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 import inf.ufes.web.rest.vm.LoggerVM;
 import ch.qos.logback.classic.AsyncAppender;
 import ch.qos.logback.classic.LoggerContext;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see LogsResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 public class LogsResourceIntTest {
 
     private MockMvc restLogsMockMvc;

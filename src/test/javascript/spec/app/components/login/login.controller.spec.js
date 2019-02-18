@@ -2,7 +2,7 @@
 
 describe('Controller Tests', function () {
 
-    beforeEach(module('intersepHipsterApp'));
+    beforeEach(module('intersepApp'));
 
     describe('LoginController', function () {
         var $scope, authService;

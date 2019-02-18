@@ -1,14 +1,14 @@
 
 <div>
-    <h2><span>Personalizada</span> {{vm.personalizada.id}}</h2>
+    <h2><span data-translate="intersepApp.personalizada.detail.title">Personalizada</span> {{vm.personalizada.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span>Identificador</span></dt>
+        <dt><span data-translate="intersepApp.personalizada.identificador">Identificador</span></dt>
         <dd>
             <span>{{vm.personalizada.identificador}}</span>
         </dd>
-        <dt><span>Query</span></dt>
+        <dt><span data-translate="intersepApp.personalizada.query">Query</span></dt>
         <dd>
             <span>{{vm.personalizada.query}}</span>
         </dd>
@@ -17,11 +17,11 @@
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
             class="btn btn-info">
-        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
     </button>
 
     <button type="button" ui-sref="personalizada-detail.edit({id:vm.personalizada.id})" class="btn btn-primary">
         <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-sm-down"> Edit</span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
     </button>
 </div>

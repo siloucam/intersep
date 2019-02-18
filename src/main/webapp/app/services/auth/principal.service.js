@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .factory('Principal', Principal);
 
     Principal.$inject = ['$q', 'Account'];

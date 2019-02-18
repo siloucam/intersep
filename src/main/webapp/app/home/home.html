@@ -5,7 +5,7 @@
             <span class="hipster img-responsive img-rounded"></span>
         </div>
         <div class="col-md-8">
-            <h1 data-translate="home.title">Bem Vindo!</h1>
+            <h1>Bem Vindo!</h1>
             <!-- <p class="lead" data-translate="home.subtitle">Faça login para ter acesso às consultas.</p> -->
 
             <br>
@@ -15,7 +15,7 @@
                     Você esta logado como "{{vm.account.login}}".
                 </div>
 
-                <div class="alert alert-warning" ng-switch-when="false" data-translate="global.messages.info.authenticated" translate-compile>
+                <div class="alert alert-warning" ng-switch-when="false">
                     Faça <a class="alert-link" href="" ng-click="vm.login()">Login</a> para ter acesso às consultas.
                 </div>
 <!-- 
@@ -24,7 +24,7 @@
                 </div> -->
             </div>
 
-            <p data-translate="home.question">
+            <p>
                 Se tiver alguma dúvida entre em contato
             </p>
 
@@ -34,5 +34,5 @@
         </div>
     </div>
 
-	
+    
 </div>

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .controller('PersonalizadaDeleteController',PersonalizadaDeleteController);
 
     PersonalizadaDeleteController.$inject = ['$uibModalInstance', 'entity', 'Personalizada'];

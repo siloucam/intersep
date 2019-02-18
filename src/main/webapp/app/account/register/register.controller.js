@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .controller('RegisterController', RegisterController);
 
 
-    RegisterController.$inject = [ '$timeout', 'Auth', 'LoginService', 'errorConstants'];
+    RegisterController.$inject = ['$translate', '$timeout', 'Auth', 'LoginService', 'errorConstants'];
 
-    function RegisterController ($timeout, Auth, LoginService, errorConstants) {
+    function RegisterController ($translate, $timeout, Auth, LoginService, errorConstants) {
         var vm = this;
 
         vm.doNotMatch = null;
@@ -25,7 +25,7 @@
             if (vm.registerAccount.password !== vm.confirmPassword) {
                 vm.doNotMatch = 'ERROR';
             } else {
-                vm.registerAccount.langKey =  'en' ;
+                vm.registerAccount.langKey = $translate.use();
                 vm.doNotMatch = null;
                 vm.error = null;
                 vm.errorUserExists = null;

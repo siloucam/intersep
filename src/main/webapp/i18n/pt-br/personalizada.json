@@ -1,0 +1,23 @@
+
+{
+    "intersepApp": {
+        "personalizada" : {
+            "home": {
+                "title": "Personalizadas",
+                "createLabel": "Criar novo Personalizada",
+                "createOrEditLabel": "Criar ou editar Personalizada"
+            },
+            "created": "Um novo Personalizada foi criado com o identificador {{ param }}",
+            "updated": "Um Personalizada foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Personalizada foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Personalizada {{ id }}?"
+            },
+            "detail": {
+                "title": "Personalizada"
+            },
+            "identificador": "Identificador",
+            "query": "Query"
+        }
+    }
+}

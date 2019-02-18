@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
@@ -20,6 +20,12 @@
                     controller: 'RequestResetController',
                     controllerAs: 'vm'
                 }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('reset');
+                    return $translate.refresh();
+                }]
             }
         });
     }

@@ -1,6 +1,6 @@
 package inf.ufes.web.rest;
 
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 import inf.ufes.config.audit.AuditEventConverter;
 import inf.ufes.domain.PersistentAuditEvent;
 import inf.ufes.repository.PersistenceAuditEventRepository;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see AuditResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 @Transactional
 public class AuditResourceIntTest {
 

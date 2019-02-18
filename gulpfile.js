@@ -1,4 +1,4 @@
-// Generated on 2018-09-27 using generator-jhipster 4.14.4
+// Generated on 2019-01-03 using generator-jhipster 4.14.4
 'use strict';
 
 var gulp = require('gulp'),
@@ -31,7 +31,11 @@ gulp.task('clean', function () {
     return del([config.dist], { dot: true });
 });
 
-gulp.task('copy', ['copy:fonts', 'copy:common']);
+gulp.task('copy', ['copy:i18n', 'copy:fonts', 'copy:common']);
+
+gulp.task('copy:i18n', copy.i18n);
+
+gulp.task('copy:languages', copy.languages);
 
 gulp.task('copy:fonts', copy.fonts);
 
@@ -82,7 +86,7 @@ gulp.task('html', function () {
     return gulp.src(config.app + 'app/**/*.html')
         .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(templateCache({
-            module: 'intersepHipsterApp',
+            module: 'intersepApp',
             root: 'app/',
             moduleSystem: 'IIFE'
         }))
@@ -91,7 +95,7 @@ gulp.task('html', function () {
 
 gulp.task('ngconstant:dev', function () {
     return ngConstant({
-        name: 'intersepHipsterApp',
+        name: 'intersepApp',
         constants: {
             VERSION: util.parseVersion(),
             DEBUG_INFO_ENABLED: true,
@@ -106,7 +110,7 @@ gulp.task('ngconstant:dev', function () {
 
 gulp.task('ngconstant:prod', function () {
     return ngConstant({
-        name: 'intersepHipsterApp',
+        name: 'intersepApp',
         constants: {
             VERSION: util.parseVersion(),
             DEBUG_INFO_ENABLED: false,
@@ -157,13 +161,13 @@ gulp.task('watch', function () {
 });
 
 gulp.task('install', function () {
-    runSequence(['inject:dep', 'ngconstant:dev'], 'inject:app', 'inject:troubleshoot');
+    runSequence(['inject:dep', 'ngconstant:dev'], 'copy:languages', 'inject:app', 'inject:troubleshoot');
 });
 
 gulp.task('serve', ['install'], serve);
 
 gulp.task('build', ['clean'], function (cb) {
-    runSequence(['copy', 'inject:vendor', 'ngconstant:prod'], 'inject:app', 'inject:troubleshoot', 'assets:prod', 'bundle-sw');
+    runSequence(['copy', 'inject:vendor', 'ngconstant:prod', 'copy:languages'], 'inject:app', 'inject:troubleshoot', 'assets:prod', 'bundle-sw');
 });
 
 gulp.task('default', ['serve']);

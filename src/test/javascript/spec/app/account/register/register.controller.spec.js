@@ -8,7 +8,7 @@ describe('Controller Tests', function() {
     describe('RegisterController', function() {
 
         var $scope, $q, errorConstants; // actual implementations
-        var MockTimeout, MockAuth; // mocks
+        var MockTimeout, MockTranslate, MockAuth; // mocks
         var createController; // local utility function
 
         beforeEach(inject(function($injector) {
@@ -17,11 +17,12 @@ describe('Controller Tests', function() {
             errorConstants = $injector.get('errorConstants');
             MockTimeout = jasmine.createSpy('MockTimeout');
             MockAuth = jasmine.createSpyObj('MockAuth', ['createAccount']);
-            
+            MockTranslate = jasmine.createSpyObj('MockTranslate', ['use']);
 
             var locals = {
                 'errorConstants': errorConstants,
                 'Auth': MockAuth,
+                '$translate': MockTranslate,
                 '$timeout': MockTimeout,
                 '$scope': $scope
             };
@@ -43,7 +44,7 @@ describe('Controller Tests', function() {
 
         it('should update success to OK after creating an account', function() {
             // given
-            
+            MockTranslate.use.and.returnValue('pt-br');
             MockAuth.createAccount.and.returnValue($q.resolve());
             createController();
             $scope.vm.registerAccount.password = $scope.vm.confirmPassword = 'password';
@@ -52,11 +53,11 @@ describe('Controller Tests', function() {
             // then
             expect(MockAuth.createAccount).toHaveBeenCalledWith({
                 password: 'password',
-                langKey: 'en'
+                langKey: 'pt-br'
             });
             expect($scope.vm.success).toEqual('OK');
-            expect($scope.vm.registerAccount.langKey).toEqual('en');
-            
+            expect($scope.vm.registerAccount.langKey).toEqual('pt-br');
+            expect(MockTranslate.use).toHaveBeenCalled();
             expect($scope.vm.errorUserExists).toBeNull();
             expect($scope.vm.errorEmailExists).toBeNull();
             expect($scope.vm.error).toBeNull();

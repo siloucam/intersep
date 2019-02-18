@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .controller('PersonalizadaDialogController', PersonalizadaDialogController);
 
     PersonalizadaDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Personalizada'];
@@ -32,7 +32,7 @@
         }
 
         function onSaveSuccess (result) {
-            $scope.$emit('intersepHipsterApp:personalizadaUpdate', result);
+            $scope.$emit('intersepApp:personalizadaUpdate', result);
             $uibModalInstance.close(result);
             vm.isSaving = false;
         }

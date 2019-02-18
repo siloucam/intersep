@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .factory('Personalizada', Personalizada);
 
     Personalizada.$inject = ['$resource'];

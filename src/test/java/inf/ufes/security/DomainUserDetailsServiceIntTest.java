@@ -1,6 +1,6 @@
 package inf.ufes.security;
 
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 import inf.ufes.domain.User;
 import inf.ufes.repository.UserRepository;
 
@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see DomainUserDetailsService
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 @Transactional
 public class DomainUserDetailsServiceIntTest {
 

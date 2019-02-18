@@ -1,0 +1,21 @@
+
+{
+    "intersepApp": {
+        "quantitativa" : {
+            "home": {
+                "title": "Quantitativas",
+                "createLabel": "Criar novo Quantitativa",
+                "createOrEditLabel": "Criar ou editar Quantitativa"
+            },
+            "created": "Um novo Quantitativa foi criado com o identificador {{ param }}",
+            "updated": "Um Quantitativa foi atualizado com o identificador {{ param }}",
+            "deleted": "Um Quantitativa foi deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Quantitativa {{ id }}?"
+            },
+            "detail": {
+                "title": "Quantitativa"
+            }
+        }
+    }
+}

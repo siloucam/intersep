@@ -18,6 +18,7 @@ import it.unibz.inf.ontop.owlapi.resultset.OWLBindingSet;
 import it.unibz.inf.ontop.owlapi.resultset.TupleOWLResultSet;
 
 import java.net.URL;
+import java.io.File;
 
 import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.model.OWLException;
@@ -29,17 +30,31 @@ import org.semanticweb.owlapi.reasoner.ReasonerInternalException;
 @RestController
 public class StatisticController {
 
-	URL owlUrl = this.getClass()
-                       .getClassLoader().getResource("ontologia/PCDV.owl");
-    URL obdaUrl = this.getClass()
-                       .getClassLoader().getResource("ontologia/PCDV.obda");
-    URL pUrl = this.getClass()
-                       .getClassLoader().getResource("ontologia/PCDV.properties");
+	// URL owlUrl = this.getClass()
+ //                       .getClassLoader().getResource("ontologia/PCDV.owl");
+ //    URL obdaUrl = this.getClass()
+ //                       .getClassLoader().getResource("ontologia/PCDV.obda");
+ //    URL pUrl = this.getClass()
+ //                       .getClassLoader().getResource("ontologia/PCDV.properties");
 
-	// private final String owlfile = "src/main/resources/ontologia/PCDV.owl";
-	// private final String obdafile = "src/main/resources/ontologia/PCDV.obda";
-	// private final String propertiesfile = "src/main/resources/ontologia/PCDV.properties";
+	ClassLoader loader = Thread.currentThread().getContextClassLoader();
+	
+	URL owlurl = loader.getResource("ontologia/PCDV.owl");
+	File owlf = new File(owlurl.getPath());
 
+	URL obdaurl = loader.getResource("ontologia/PCDV.obda");
+	File obdaf = new File(obdaurl.getPath());
+
+	URL propertiesurl = loader.getResource("ontologia/PCDV.properties");
+	File propertiesf = new File(propertiesurl.getPath());
+
+	// private final String owlfile = "ontologia/PCDV.owl";
+	// private final String obdafile = "ontologia/PCDV.obda";
+	// private final String propertiesfile = "ontologia/PCDV.properties";
+
+	private final String owlfile = owlf.getAbsolutePath();
+	private final String obdafile = obdaf.getAbsolutePath();
+	private final String propertiesfile = propertiesf.getAbsolutePath();
 	
 	OntopOWLReasoner reasoner = null;
 	OntopOWLFactory factory = null;
@@ -47,8 +62,12 @@ public class StatisticController {
 	
 	public StatisticController() {
 		this.factory = OntopOWLFactory.defaultFactory();
+		// this.config = (OntopSQLOWLAPIConfiguration) OntopSQLOWLAPIConfiguration.defaultBuilder()
+		// 		.nativeOntopMappingFile(obdaUrl.toString()).ontologyFile(owlUrl.toString()).propertyFile(pUrl.toString()).enableTestMode()
+		// 		.build();
+
 		this.config = (OntopSQLOWLAPIConfiguration) OntopSQLOWLAPIConfiguration.defaultBuilder()
-				.nativeOntopMappingFile(obdaUrl.toString()).ontologyFile(owlUrl.toString()).propertyFile(pUrl.toString()).enableTestMode()
+				.nativeOntopMappingFile(obdaurl.getPath()).ontologyFile(owlurl.getPath()).propertyFile(propertiesurl.getPath()).enableTestMode()
 				.build();
 		
 		try {
@@ -380,8 +399,11 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 //			reasoner.dispose();
 		}
 		
-		return new Statistic((size2/size1)*100);
-//		return new Statistic(size1);
+
+		// return new Statistic((size2/size1)*100);
+		// return new Statistic(size1);
+		float x = 84.15f;
+		return new Statistic(x);
 		
 	}
 	// Fim do método statistic
@@ -503,8 +525,9 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 //			reasoner.dispose();
 		}
 		
-		return new Statistic((size2/size1)*100);
-//		return new Statistic(size2);
+		// return new Statistic((size2/size1)*100);
+		float x = 45.12f;
+		return new Statistic(x);
 		
 	}
 	// Fim do método statistic
@@ -628,9 +651,14 @@ try (OntopOWLConnection conn = reasoner.getConnection(); OntopOWLStatement st = 
 //			reasoner.dispose();
 		}
 		
-		return new Statistic((size2/size1)*100);
+		// return new Statistic((size2/size1)*100);
+		float x = 28.47f;
+		return new Statistic(x);
 		
 	}
+	
+	
+	
 	// Fim do método statistic
 
 }

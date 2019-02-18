@@ -2,12 +2,16 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .controller('PersonalizadaController', PersonalizadaController);
 
     PersonalizadaController.$inject = ['Personalizada','$scope', '$http'];
 
     function PersonalizadaController(Personalizada,$scope,$http) {
+
+        var vm = this;
+
+        vm.personalizadas = [];
 
         $scope.retorno;
 
@@ -42,7 +46,7 @@
 
             $http({
               method: 'GET',
-              url: ("http://localhost:8081/sparql?q="+formatada),
+              url: ("http://dev.nemo.inf.ufes.br:8180/intersep/sparql?q="+formatada),
               Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
           }).then(function successCallback(response) {
 
@@ -55,10 +59,6 @@
         });
       }
 
-
-        var vm = this;
-
-        vm.personalizadas = [];
 
         loadAll();
 

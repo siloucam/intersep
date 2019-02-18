@@ -1,0 +1,82 @@
+[PrefixDeclaration]
+:		http://www.semanticweb.org/nemo/ontologies/pcdv#
+owl:		http://www.w3.org/2002/07/owl#
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+xml:		http://www.w3.org/XML/1998/namespace
+xsd:		http://www.w3.org/2001/XMLSchema#
+obda:		https://w3id.org/obda/vocabulary#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+
+[MappingDeclaration] @collection [[
+mappingId	Map Indiciado
+target		:Indiciado{ID_ENVOLVIDO} a :indiciado ; :nome {NOME}^^xsd:string ; :cpf {CPF}^^xsd:string . 
+source		SELECT ENVOLVIDO.CPF,ENVOLVIDO.NOME, E.ID_ENVOLVIDO,E.ID_PECA,E.TIPO TIPOENVOLVIMENTO,PECA.ID_PROCEDIMENTO,PROCEDIMENTO.TIPO TIPOPROCEDIMENTO,PROCEDIMENTO.STATUS FROM envolvimento E
+			INNER JOIN peca PECA ON PECA.ID_PECA = E.ID_PECA
+			INNER JOIN ENVOLVIDO ENVOLVIDO ON ENVOLVIDO.ID_ENVOLVIDO = E.ID_ENVOLVIDO
+			INNER JOIN PROCEDIMENTO PROCEDIMENTO ON PECA.ID_PROCEDIMENTO = PROCEDIMENTO.ID_PROCEDIMENTO
+			WHERE PROCEDIMENTO.STATUS = 'Tramitado' AND PROCEDIMENTO.TIPO = 'IP' AND E.TIPO = 'SUSPEITO'
+
+mappingId	Map Indiciamento
+target		:Indiciamento{ID_PROCEDIMENTO} :indicia :Indiciado{ID_ENVOLVIDO} ; :codigo {CODIGO}^^xsd:string . 
+source		SELECT ENVOLVIDO.CPF,ENVOLVIDO.NOME, E.ID_ENVOLVIDO,E.ID_PECA,E.TIPO TIPOENVOLVIMENTO,PECA.ID_PROCEDIMENTO,PROCEDIMENTO.TIPO TIPOPROCEDIMENTO,PROCEDIMENTO.STATUS,PROCEDIMENTO.CODIGO FROM envolvimento AS E
+			INNER JOIN peca PECA ON PECA.ID_PECA = E.ID_PECA
+			INNER JOIN ENVOLVIDO ENVOLVIDO ON ENVOLVIDO.ID_ENVOLVIDO = E.ID_ENVOLVIDO
+			INNER JOIN PROCEDIMENTO PROCEDIMENTO ON PECA.ID_PROCEDIMENTO = PROCEDIMENTO.ID_PROCEDIMENTO
+			WHERE PROCEDIMENTO.STATUS = 'Tramitado' AND PROCEDIMENTO.TIPO = 'IP' AND E.TIPO = 'SUSPEITO'
+
+mappingId	Map Crime Alegado
+target		:Crime_Alegado_em_{codigo} a :crime_alegado . 
+source		select * from procedimento where TIPO='IP'
+
+mappingId	Map relativo_a
+target		:Indiciamento{id_procedimento} :relativo_a :Crime_Alegado_em_{codigo} . 
+source		select * from procedimento where tipo='IP'
+
+mappingId	Map Tipificacao_do_Crime
+target		:Tipificacao_do_Crime_{codigo} a :tipificacao_do_crime ; :codigo {codigo} . 
+source		select * from tipificacao_fato
+
+mappingId	Map Menciona
+target		:Crime_Alegado_em_{codigo} :tipo {id_tipificacao_fato} . 
+source		SELECT E.ID_PECA,PROCEDIMENTO.CODIGO AS codigo,PECA.ID_TIPIFICACAO_FATO AS id_tipificacao_fato FROM envolvimento E
+			INNER JOIN peca PECA ON PECA.ID_PECA = E.ID_PECA
+			INNER JOIN ENVOLVIDO ENVOLVIDO ON ENVOLVIDO.ID_ENVOLVIDO = E.ID_ENVOLVIDO
+			INNER JOIN PROCEDIMENTO PROCEDIMENTO ON PECA.ID_PROCEDIMENTO = PROCEDIMENTO.ID_PROCEDIMENTO
+			WHERE PROCEDIMENTO.STATUS = 'Tramitado' AND PROCEDIMENTO.TIPO = 'IP' AND E.TIPO = 'SUSPEITO'
+
+mappingId	MAP_Execucao_Penal
+target		:Execucao_Penal_{no_feito} a :processo_execucao_penal ; :codigo {no_feito}^^xsd:string ; :processo_origem {no_processo_origem}^^xsd:string . 
+source		SELECT * from feito
+			inner join feito_origem on feito.id_feito = feito_origem.id_feito
+
+mappingId	MAP_Pena_Imposta
+target		:Pena_Imposta_de_{no_feito} a :pena_imposta ; :componente_de :Execucao_Penal_{no_feito} . 
+source		SELECT * from pena_aplicada
+			inner join feito on pena_aplicada.id_execucao = feito.id_feito
+
+mappingId	MAP_relativo_a
+target		:Pena_Imposta_de_{no_feito} :relativo_a :Crime_Alegado_de_{no_feito} . 
+source		SELECT pena_aplicada.dm_tipo_pena_aplicada, feito.no_feito from pena_aplicada
+			inner join feito on pena_aplicada.id_execucao = feito.id_feito
+
+mappingId	map_crime_alegado
+target		:Crime_Alegado_de_{no_feito} a :crime_alegado ; :tipo {dm_tipo_pena_aplicada} . 
+source		SELECT pena_aplicada.dm_tipo_pena_aplicada, feito.no_feito from pena_aplicada
+			inner join feito on pena_aplicada.id_execucao = feito.id_feito
+
+mappingId	MAP_Condenado
+target		:Condenado_{no_cpf} a :condenado ; :recebe :Execucao_Penal_{no_feito} ; :cpf {no_cpf}^^xsd:string . 
+source		select f.no_feito, cpf.no_cpf
+			from feito f
+			inner join pessoa_feito pf
+			on f.id_feito = pf.id_feito
+			inner join pessoa p
+			on p.id_pessoa = pf.id_pessoa
+			inner join tipo_pessoa tp
+			on tp.id_tipo_pessoa = 2
+			inner join pessoa_fisica p_f
+			on p.id_pessoa = p_f.id_pessoa_fisica
+			inner join cpf cpf
+			on p_f.id_pessoa_fisica = cpf.id_pessoa_fisica
+]]
+

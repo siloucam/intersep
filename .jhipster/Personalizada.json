@@ -11,7 +11,7 @@
             "fieldType": "String"
         }
     ],
-    "changelogDate": "20181030000407",
+    "changelogDate": "20190215153654",
     "entityTableName": "personalizada",
     "dto": "no",
     "pagination": "no",

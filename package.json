@@ -1,7 +1,7 @@
 {
-  "name": "intersep-hipster",
+  "name": "intersep",
   "version": "0.0.0",
-  "description": "Description for IntersepHipster",
+  "description": "Description for intersep",
   "private": true,
   "license": "UNLICENSED",
   "cacheDirectories": [
@@ -65,9 +65,5 @@
   },
   "scripts": {
     "test": "gulp test"
-  },
-  "dependencies": {
-    "angular-chart.js": "^1.1.1",
-    "zingchart": "^2.8.3"
   }
 }

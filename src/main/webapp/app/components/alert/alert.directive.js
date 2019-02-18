@@ -11,7 +11,7 @@
     };
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .component('jhiAlert', jhiAlert);
 
     jhiAlertController.$inject = ['$scope', 'AlertService'];

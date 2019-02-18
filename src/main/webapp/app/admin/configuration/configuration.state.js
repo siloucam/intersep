@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];
@@ -13,7 +13,7 @@
             url: '/configuration',
             data: {
                 authorities: ['ROLE_ADMIN'],
-                pageTitle: 'Configuration'
+                pageTitle: 'configuration.title'
             },
             views: {
                 'content@': {
@@ -21,6 +21,12 @@
                     controller: 'JhiConfigurationController',
                     controllerAs: 'vm'
                 }
+            },
+            resolve: {
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('configuration');
+                    return $translate.refresh();
+                }]
             }
         });
     }

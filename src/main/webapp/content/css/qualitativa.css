@@ -1,9 +1,0 @@
-.panel-body{
-    padding: 0 20px;
-}
-
-@media (max-width: 500px){
-    .col-xl-6, .col-lg-6 {
-        margin-bottom: 40px;
-    }
-}

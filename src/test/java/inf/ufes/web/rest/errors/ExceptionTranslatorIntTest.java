@@ -1,6 +1,6 @@
 package inf.ufes.web.rest.errors;
 
-import inf.ufes.IntersepHipsterApp;
+import inf.ufes.IntersepApp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ExceptionTranslator
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = IntersepHipsterApp.class)
+@SpringBootTest(classes = IntersepApp.class)
 public class ExceptionTranslatorIntTest {
 
     @Autowired

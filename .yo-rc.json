@@ -1,33 +1,37 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "inf.ufes"
+      "packageName": "inf.ufes",
+      "nativeLanguage": "pt-br"
     },
     "jhipsterVersion": "4.14.4",
-    "baseName": "IntersepHipster",
+    "baseName": "intersep",
     "packageName": "inf.ufes",
     "packageFolder": "inf/ufes",
     "serverPort": "8081",
-    "authenticationType": "jwt",
-    "cacheProvider": "ehcache",
-    "enableHibernateCache": false,
+    "authenticationType": "session",
+    "cacheProvider": "no",
     "websocket": false,
     "databaseType": "sql",
-    "devDatabaseType": "h2Disk",
-    "prodDatabaseType": "mysql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
     "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "maven",
     "enableSocialSignIn": false,
     "enableSwaggerCodegen": false,
-    "jwtSecretKey": "b87cc155d1cc25a93301ab000432b2f36ee87e9f",
+    "rememberMeKey": "d84263ebdefbdcf358baebd7458567aae1011151",
     "clientFramework": "angular1",
     "useSass": false,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
-    "enableTranslation": false
+    "enableTranslation": true,
+    "nativeLanguage": "pt-br",
+    "languages": [
+      "pt-br"
+    ]
   }
 }

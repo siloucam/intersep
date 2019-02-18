@@ -2,16 +2,16 @@
     'use strict';
 
     angular
-        .module('intersepHipsterApp')
+        .module('intersepApp')
         .directive('pageRibbon', pageRibbon);
 
-    pageRibbon.$inject = ['ProfileService', '$rootScope'];
+    pageRibbon.$inject = ['ProfileService', '$rootScope', '$translate'];
 
-    function pageRibbon(ProfileService, $rootScope) {
+    function pageRibbon(ProfileService, $rootScope, $translate) {
         var directive = {
             replace : true,
             restrict : 'AE',
-            template : '<div class="ribbon hidden"><a href="">{{ribbonEnv}}</a></div>',
+            template : '<div class="ribbon hidden"><a href="" data-translate="global.ribbon.{{ribbonEnv}}">{{ribbonEnv}}</a></div>',
             link : linkFunc
         };
 
