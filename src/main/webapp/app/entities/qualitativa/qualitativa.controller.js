@@ -41,7 +41,7 @@
 
 $http({
     method: 'GET',
-    url: ("http://dev.nemo.inf.ufes.br:8180/intersep/processo?codigo='"+$scope.codigoprocesso+"'"),
+    url: ("http://localhost:8081/processo?codigo='"+$scope.codigoprocesso+"'"),
     Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
 }).then(function successCallback(response) {
 
@@ -79,7 +79,7 @@ $scope.buscar = function() {
 
 $http({
     method: 'GET',
-    url: ("http://dev.nemo.inf.ufes.br:8180/intersep/indiciamentos_cpf?cpf='"+$scope.buscacpf+"'"),
+    url: ("http://localhost:8081/indiciamentos_cpf?cpf='"+$scope.buscacpf+"'"),
     Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
 }).then(function successCallback(response) {
 
@@ -112,7 +112,7 @@ $http({
 
 $http({
   method: 'GET',
-  url: ("http://dev.nemo.inf.ufes.br:8180/intersep/penais_cpf?cpf='"+$scope.buscacpf+"'"),
+  url: ("http://localhost:8081/penais_cpf?cpf='"+$scope.buscacpf+"'"),
   Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
 }).then(function successCallback(response) {
    console.log(response.data.codigo);

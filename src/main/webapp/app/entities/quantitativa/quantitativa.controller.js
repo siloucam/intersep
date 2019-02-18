@@ -28,12 +28,12 @@
 
         //http://dev.nemo.inf.ufes.br:8081/q1
 
-        //http://dev.nemo.inf.ufes.br:8180/intersep/q1
+        //http://localhost:8081/q1
 
         function gerarEstatistica(){
          $http({
             method: 'GET',
-            url: ("http://dev.nemo.inf.ufes.br:8180/intersep/q1"),
+            url: ("http://localhost:8081/q1"),
             Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
         }).then(function successCallback(response) {
            console.log(response.data.value);
@@ -98,7 +98,7 @@ zingchart.render({
 
         $http({
             method: 'GET',
-            url: ("http://dev.nemo.inf.ufes.br:8180/intersep/q2"),
+            url: ("http://localhost:8081/q2"),
             Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
         }).then(function successCallback(response) {
            console.log(response.data.value);
@@ -163,7 +163,7 @@ zingchart.render({
 
         $http({
             method: 'GET',
-            url: ("http://dev.nemo.inf.ufes.br:8180/intersep/q3"),
+            url: ("http://localhost:8081/q3"),
             Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTU0MDYxNDUzOX0.4bbZtX6NNwZS7skSDNlwkLJO-gmpBZzK-Ze66sdsgvhFtnv8ra0RVFlwWpm2FMbivAHKYDS7bNfxFT9PkW1b5w'
         }).then(function successCallback(response) {
            console.log(response.data.codigo);
